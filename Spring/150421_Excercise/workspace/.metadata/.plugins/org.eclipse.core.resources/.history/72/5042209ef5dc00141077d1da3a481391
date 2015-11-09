@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PartnerMapper">
+
+<resultMap type="Partner" id="PartnerResult">
+	<result property="PartnerID" column="PARTNER_ID"/>
+	<result property="PartnerName" column="PARTNER_NAME"/>
+	<result property="useYN" column="USE_YN"/>
+	<result property="createDate" column="CREATE_DATE"/>
+	<result property="updateDate" column="UPDATE_DATE"/>
+</resultMap>
+
+<select id="selectPartnerList" parameterType="Partner" resultMap="PartnerResult">
+
+	<![CDATA[
+	
+	SELECT * FROM Partner
+	WHERE USE_YN = 'Y'
+	
+	]]>
+
+
+
+</select>
+</mapper>

@@ -1,0 +1,434 @@
+#include <iostream>
+using namespace std;
+
+class Point{
+public:
+	void Print();
+
+	Point();
+	Point(int initialX, int initialY);
+	Point(const Point& pt);
+
+	void SetX(int value) {
+		if (value < 0)
+			x = 0;
+		else if(value > 100)
+			x = 100;
+		else
+			x = value;
+	};
+	void SetY(int value) {
+		if (value < 0)
+			y = 0;
+		else if (value > 100)
+			y = 100;
+		else 
+			y = value;
+	};
+	int GetX(){return x;};
+	int GetY(){return y;};
+
+private:
+	int x, y;
+};
+
+Point::Point(const Point& pt){
+	x = pt.x;
+	y = pt.y;
+}
+
+Point::Point(int initialX, int initialY){
+	x = initialX;
+	y = initialY;
+}
+
+Point::Point(){
+	x = 0;
+	y = 0;
+}
+
+void Point::Print(){
+	cout << " ( " << x << ", " << y << " ) \n";
+}
+
+int main(){
+	Point pt(-50, 200);
+	pt.Print();
+	return 0;
+}
+
+
+/*#include <iostream>
+using namespace std;
+
+class Point{
+public:
+	void Print();
+
+	Point();
+	Point(int initialX, int initialY);
+	Point(const Point& pt);
+
+	void SetX(int value) {
+		if (value < 0)
+			x = 0;
+		else if(value > 100)
+			x = 100;
+		else
+			x = value;
+	};
+	void SetY(int value) {
+		if (value < 0)
+			y = 0;
+		else if (value > 100)
+			y = 100;
+		else 
+			y = value;
+	};
+	int GetX(){return x;};
+	int GetY(){return y;};
+
+private:
+	int x, y;
+};
+
+Point::Point(const Point& pt){
+	x = pt.x;
+	y = pt.y;
+}
+
+Point::Point(int initialX, int initialY){
+	x = initialX;
+	y = initialY;
+}
+
+Point::Point(){
+	x = 0;
+	y = 0;
+}
+
+void Point::Print(){
+	cout << " ( " << x << ", " << y << " ) \n";
+}
+
+int main(){
+	Point pt;
+	
+	pt.SetX(-50);
+	pt.SetY(200);
+
+	pt.Print();
+	return 0;
+}
+
+/*#include <iostream>
+using namespace std;
+
+class Point{
+public:
+	void Print();
+
+	Point();
+	Point(int initialX, int initialY);
+	Point(const Point& pt);
+
+	void SetX(int value) {x = value;};
+	void SetY(int value) {y = value;};
+	int GetX(){return x;};
+	int GetY(){return y;};
+
+private:
+	int x, y;
+};
+
+Point::Point(const Point& pt){
+	x = pt.x;
+	y = pt.y;
+}
+
+Point::Point(int initialX, int initialY){
+	x = initialX;
+	y = initialY;
+}
+
+Point::Point(){
+	x = 0;
+	y = 0;
+}
+
+void Point::Print(){
+	cout << " ( " << x << ", " << y << " ) \n";
+}
+
+int main(){
+	Point pt;
+	
+	pt.SetX(100);
+	pt.SetY(100);
+
+	cout << "pt.x = " << pt.GetX() << "\n";
+	cout << "pt.y = " << pt.GetY() << "\n";
+
+	return 0;
+}
+
+
+/* 예제 21-15
+
+#include <iostream>
+using namespace std;
+
+class DynamicArray{
+public:
+	int* arr;
+	DynamicArray(int arraySize);
+	~DynamicArray();
+};
+
+DynamicArray:: DynamicArray(int arraySize){
+	arr = new int[arraySize];
+}
+
+DynamicArray::~DynamicArray(){
+	delete[] arr;
+	arr = NULL;
+}
+
+int main(){
+	int size;
+	cout << "몇 개의 정수를 입력하시겠소? ";
+	cin >> size;
+
+	DynamicArray da(size);
+
+	for(int i =0; i< size; ++i)
+		cin >> da.arr[i];
+
+	for(int i = size - 1; i >= 0; --i)
+		cout << da.arr[i] << " " ;
+
+	cout << "\n";
+
+	return 0;
+}
+
+/* 예제 21-12
+
+#include <iostream>
+using namespace std;
+
+class NeedConstructor{
+public:
+	const int maxCount;
+	int& ref;
+	int sample;
+
+	NeedConstructor();
+	NeedConstructor(int count, int& number);
+};
+
+NeedConstructor::NeedConstructor(int count, int& number)
+	: maxCount(count), ref(number)
+{
+	sample = 200;
+}
+
+
+
+NeedConstructor::NeedConstructor()
+	: maxCount(100), ref(sample)
+{
+	sample = 200;
+}
+
+int main(){
+	int number = 400;
+
+	NeedConstructor cr(300, number);
+
+	cout << "cr.maxCount = " << cr.maxCount << "\n";
+	cout << "cr.ref = " << cr.ref << "\n";
+	return 0;
+}
+
+
+
+/* 예제 21-11
+
+#include <iostream>
+using namespace std;
+
+class NeedConstructor{
+public:
+	const int maxCount;
+	int& ref;
+	int sample;
+
+	NeedConstructor();
+};
+
+NeedConstructor::NeedConstructor()
+	: maxCount(100), ref(sample)
+{
+	sample = 200;
+}
+
+int main(){
+	NeedConstructor cr;
+
+	cout << "cr.maxCount = " << cr.maxCount << "\n";
+	cout << "cr.ref = " << cr.ref << "\n";
+	return 0;
+}
+
+/* 예제 21-8
+
+#include <iostream>
+using namespace std;
+
+class Point{
+public:
+	int x, y;
+
+	void Print();
+
+	Point();
+	Point(int initialX, int initialY);
+	Point(const Point& pt);
+};
+
+Point::Point(const Point& pt){
+	cout << "복사 생성자 호출됨!\n";
+	x = pt.x;
+	y = pt.y;
+}
+
+Point::Point(int initialX, int initialY){
+	x = initialX;
+	y = initialY;
+}
+
+Point::Point(){
+	x = 0;
+	y = 0;
+}
+
+void Point::Print(){
+	cout << " ( " << x << ", " << y << " ) \n";
+}
+
+int main(){
+	Point pt1(100, 100), pt2(200, 200);
+	
+	Point pt3 = pt1;
+	pt3.Print();
+	pt3 = pt2;
+	pt3.Print();
+
+	return 0;
+}
+
+
+
+/*  예제 21-7
+
+#include <iostream>
+using namespace std;
+
+class Point {
+public:
+	int x, y;
+	void Print();
+
+	Point();
+	Point(int initialX, int initialY);
+};
+
+Point::Point(int initialX, int initialY){
+	x = initialX;
+	y = initialY;
+}
+
+Point::Point(){
+	x = 0;
+	y = 0;
+}
+
+void Point::Print(){
+	cout << " ( " << x << ", " << y << " ) \n";
+}
+
+int main(){
+	Point pt(3, 5);
+
+	pt.Print();
+	return 0;
+}
+
+
+/*  예제 21-6
+
+#include <iostream>
+using namespace std;
+
+class Point {
+public:
+	int x, y;
+	void Print();
+
+	Point();
+};
+
+Point::Point(){
+	x = 0;
+	y = 0;
+}
+
+void Point::Print(){
+	cout << " ( " << x << ", " << y << " ) \n";
+}
+
+int main(){
+	Point pt;
+
+	pt.Print();
+	return 0;
+}
+
+
+/*#include <iostream>
+using namespace std;
+
+class Point{
+public:
+	int x, y;
+	void Print();
+	int Add();
+	int Sub();
+};
+
+void Point::Print(){
+		cout << "( " << x << ", " << y << " ) \n";
+}
+
+int Point::Add(){
+	return x+y;
+}
+
+int Point::Sub(){
+	return y-x;
+}
+
+int main(){
+	Point pt1, pt2;
+
+	pt1.x = 100;
+	pt1.y = 100;
+	pt2.x = 200;
+	pt2.y = 200;
+
+	pt1.Print();
+	pt2.Print();
+
+	return 0;
+}*/

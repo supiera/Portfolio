@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Local Storage Example</title>
+<script type="text/javascript" >
+
+ var name = document.getElementById("name");
+ var favorite = document.getElementById("favorite");
+ var comment = document.getElementById("comment");
+ var point = document.getElementById("point");
+
+var customerList;
+var ListSize = 0;
+window.onload = init
+
+function init(){
+
+	var addButton = document.getElementById("addButton");
+	addButton.onclick = AddCustomer;
+	loadCustomer();
+	var removeButton = document.getElementById("removeButton");
+	removeButton.onclick = RemoveCustomer;
+}
+
+function AddCustomer(){
+	alert("add");
+
+	customerList = new Customer(name, favorite, comment, comment, point);
+	var value = JSON.stringify(customerList);
+	var key = 'Customer' + new Date().getTime();
+	localStorage[key] = value;
+	
+	location.reload(true);
+	
+
+}
+
+function loadCustomer(){
+	
+	//load customer from localstorage;
+
+
+	var div = document.getElementById("customerList");
+	
+	for (var i = 0; i<localStorage.length; i++){
+		var key = localStorage.key(i);
+		var customer = localStorage[i];
+		var customerObject = JSON.parse(customer);
+		var ul = document.createElement("div");
+		ul.value = key;
+		ul.innerHTML = customerObject.name+" likes "+customerObject.favorite+" and his(her) comment is '"+customerObject.comment+"' (point:"+customerObject.point+")";
+		div.appendChild(ul);
+	}
+	
+}
+
+function Customer(name, favorite, comment, point){
+	this.name = name;
+	this.favorite = favorite;
+	this.comment = comment;
+	this.point = point;
+	
+}
+
+function RemoveCustomer(customerList){
+	alert("remove");
+	for(var i = 0; i<localStorage.length; i++){
+		localStorage.removeItem(i);
+	}
+}
+</script>
+</head>
+<body>
+성함 : 
+<input type = "text" id = "name">
+</br>
+좋아하는 커피 : 
+<input type = "text" id = "favorite">
+</br>
+특별한 주문 : 
+<input type = "text" id = "comment">
+</br>
+포인트 : 
+<input type = "text" id = "point">
+</br>
+
+<input type = button id = "addButton" value = "Add Customer">
+</br>
+<input type = "button" id = "removeButton" value = "Remove All Customer">
+</br>
+</br>
+손님 리스트
+<ul id = "customerList"></ul>
+
+</body>
+</html>

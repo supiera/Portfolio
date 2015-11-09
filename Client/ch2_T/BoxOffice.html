@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>영화 검색 시스템</title>
+
+<script>
+	window.onload = init;		//처음 시작할때 함수
+	var movieList = new Array();	//전역변수
+	
+	function init(){
+		// alert("init");		//debug용
+		movieList[0] =  new Movie("명동", "베테랑", "3시, 4시, 6시");	//movie 객체 생성
+		movieList[1] = new Movie("의정부", "앤트맨", "3시, 5시, 7시");	//movie 객체 생성
+		movieList[2] = new Movie("의정부", "베테랑", "3시, 4시, 6시");	//movie 객체 생성
+		movieList[3] = new Movie("명동", "베테랑", "3시, 4시, 6시");	//movie 객체 생성
+		movieList.push(new Movie("명동", "베테랑", "3시, 4시, 6시"));	//movie 객체 생성
+		
+		var button  = document.getElementById("search");	//버튼을 찾음
+		button.onclick = handleButtonClick;	//버튼이 클릭되었을때 handleButtonclick 을 실행
+	}
+	
+	function handleButtonClick(){
+		var location = document.getElementById("location").value;		//location 태그안의 값을 가져옴
+		var title = document.getElementById("title").value;
+		var m = search(location, title);
+		var div = document.getElementById("timeTable");
+		div.innerHTML = m.timeTable;		//div에 찍어준다. 안에있는 html코드를.
+	}
+	
+	function search(location, title){
+		for(var i = 0; i<movieList.length ; i++){
+			if (location == movieList[i].location){
+				if(title == movieList[i].title){
+					return movieList[i];
+				}
+			}
+		}
+	}
+	
+	function Movie(location, title, timeTable){
+		this.location = location;
+		this.title = title;
+		this.timeTable = timeTable;
+	}
+</script>
+</head>
+<body>
+	<input type = "text" id="location" size = 40 placeholder="지점"> <!-- default -->
+	<input type = "text" id="title" size = 40 placeholder="제목">
+	<input type = "button" id ="search" value = "Search">
+	<div id = "timeTable"></div>
+</body>
+</html>

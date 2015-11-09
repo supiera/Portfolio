@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+  <script>
+        function Movie(title, location, timeTable) {
+            this.title = title;
+            this.location = location;
+            this.timeTable = timeTable;
+        }
+
+        window.onload = function () {
+            var m = new Movie("베테랑", "의정부", "2시, 4시");
+            var jsonString = JSON.stringify(m);
+            alert(json);
+            var mObj = JSON.parse(jsonString);
+            alert(mObj);
+        }
+        
+        
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

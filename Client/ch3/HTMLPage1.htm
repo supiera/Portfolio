@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Where am i</title>
+    <script>
+        window.onload = getMyLocation;
+        function getMyLocation() {
+            if (navigator.geolocation) {    //navigator라는 object에서 geolocation 이 브라우저에 떠 있나를 확인
+                navigator.geolocation.getCurrentPosition(displayLocation);  // 콜백함수. async.
+            } else
+                alert("No geolocation supported");
+        }
+        function displayLocation(position) {        //position안에 lat, lng이 있음
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            var div = document.getElementById("location");
+            div.innerHTML = "Latitude : " + latitude + ", Longitude : " + longitude;
+        }
+    </script>
+</head>
+<body>
+    <div id = "location"></div>
+</body>
+</html>

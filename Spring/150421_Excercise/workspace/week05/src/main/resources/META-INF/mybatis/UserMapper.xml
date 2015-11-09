@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SqlUserMapper">
+
+<resultMap type="User" id="UserResult">
+	<result property="userId" column="USER_ID"/>
+	<result property="partnerId" column="PARTNER_ID"/>
+	<result property="userName" column="USER_NAME"/>
+	<result property="userNickName" column="USER_NICK_NAME"/>
+	<result property="userAge" column="USER_AGE"/>
+	<result property="useYn" column="USE_YN"/>
+	<result property="createDate" column="CREATE_DATE"/>
+	<result property="updateDate" column="UPDATE_DATE"/>
+</resultMap>
+
+
+<select id="selectUserList" parameterType="User" resultMap="UserResult">
+
+<![CDATA[
+	SELECT * FROM USER
+	
+]]>
+
+</select>
+
+<update id="deleteUser" parameterType="Integer" >
+	<![CDATA[
+			UPDATE USER SET USE_YN = 'N'
+			WHERE USER_ID = #{userId}
+	]]>
+</update>
+
+<insert id="insertUser" parameterType="User">
+	<![CDATA[
+		INSERT INTO User
+		( PARTNER_ID, USER_NAME, USER_NICK_NAME, USER_AGE,USE_YN,CREATE_DATE, UPDATE_DATE )
+		VALUES ( #{ partnerId }, #{ userName }, #{ userNickName }, #{ userAge }, 'Y', NOW(), NOW() )
+	]]>
+</insert>
+
+
+<update id="deleteUser" parameterType="Integer" >
+	<![CDATA[
+		UPDATE User SET USE_YN = 'N'
+		WHERE USER_ID = #{userId}
+	]]>
+</update>
+
+</mapper>

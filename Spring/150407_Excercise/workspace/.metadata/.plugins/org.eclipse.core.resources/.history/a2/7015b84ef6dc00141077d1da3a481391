@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SqlUserMapper">
+
+<resultMap type="User" id="UserResult">
+	<result property="userId" column="USER_ID"/>
+	<result property="partnerId" column="PARTNER_ID"/>
+	<result property="userName" column="USER_NAME"/>
+	<result property="userNickName" column="USER_NICK_NAME"/>
+	<result property="userAge" column="USER_AGE"/>
+	<result property="useYn" column="USE_YN"/>
+	<result property="createDate" column="CREATE_DATE"/>
+	<result property="updateDate" column="UPDATE_DATE"/>
+</resultMap>
+<sql id="List_WhereClause">
+
+<if test="PartnerID > 0">
+ANDM.USER_ID = #{ partnerID}
+</if>
+
+<if test="UserName != null and UserName !=' ' ">
+ANDM.USER_NAME LIKE CONCAT('%', #{ UserName }, '%')
+</if>
+
+</sql>
+
+<select id="selectUser" parameterType="User" resultMap="UserResult">
+
+<![CDATA[
+	SELECT
+		M.USER_ID AS USER_ID,
+		G.PARTNER_NAME AS PARTNER_NAME,
+		M.USER_NAME AS USER_NAME,
+		M.USER_NICK_NAME AS USER_NICK_NAME,
+		M.USER_AGE AS USER_AGE,
+		M.CREATE_DATE AS CREATE_DATE
+		M.UPDATE_DATE AS UPDATE_DATE
+		FROM User M , Partner G
+		WHERE M.USE_YN = 'Y'
+		AND M.USER_ID = G.USER_ID
+		AND G.USE_YN = 'Y'
+]]>
+<include refid="List_WhereClause"/>
+ORDER BY M.CREATE_DATE DESC
+</select>
+
+<update id="deleteUser" parameterType="Integer" >
+	<![CDATA[
+		UPDATE USER SET USE_YN = 'N'
+		WHERE USER_ID = #{ UserID }
+]]>
+</update>
+
+</mapper>

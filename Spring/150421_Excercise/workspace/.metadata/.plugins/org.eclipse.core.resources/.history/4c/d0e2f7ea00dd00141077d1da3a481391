@@ -1,0 +1,133 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page session="false" %>
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" src="/resources/js/jquery-1.9.1.min.js">
+		</script>
+		<style type="text/css">
+			<!—
+			body{
+			line-height: 1.6em;
+			}
+			
+			#newspaper-a{
+			font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+			font-size: 12px;
+			margin: 10px;
+			width: 600px;
+			text-align: left;
+			border-collapse: collapse;
+			border: 1px solid #69c;
+			}
+			
+			#newspaper-a th{
+			padding: 12px 17px 12px 17px;
+			font-weight: normal;
+			font-size: 14px;
+			color: #039;
+			border-bottom: 1px dashed #69c;
+			}
+			
+			#newspaper-a td{
+			padding: 7px 17px 7px 17px;
+			color: #669;
+			}
+			
+			#newspaper-a tbody tr:hover td{
+			color: #339;
+			background: #d0dafd;
+			}
+			
+			-->
+			</style>
+			
+			<script type="text/javascript">
+				function goSearch() {
+					$("#listForm").attr({
+					action : "/user/List/",
+					method : "post"
+					}).submit();
+				}
+				
+				function goDel() {
+				}
+				
+				function goAdd() {
+					$("#listForm").attr({
+						action : "/user/Create/",
+						method : "post"
+					}).submit();
+				}
+			</script>
+			
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+			
+			<title>사용자 목록</title>
+	</head>
+	
+		<form:form modelAttribute="searchData" id="listForm" method="post">
+			<div align="center" style="width: 100%;"></div>
+			<table id="newspaper-a" summary="partnerList">
+				<thead>
+				<tr>
+					<th scope="col">파트너명</th>
+					<th scope="col">
+						<form:select path="partnerId">
+							<form:option value="0" label="전체" />
+							<c:forEach var="data" items="${partnerList}" varStatus="status">
+								<form:option value="${data.partnerId}" label="${data.partnerName}" />
+							</c:forEach>
+						</form:select>
+					</th>
+					
+					<th scope="col">사용자명</th>
+					<th scope="col"><form:input type="text" path="userName" size="10" maxlength="10" /> </th>
+					<th scope="col"><input type="button" onclick="goSearch();" value="검색"> </th>
+				</tr>
+				</thead>
+			</table>
+			
+			<table id="newspaper-a" summary="userList">
+				<thead>
+					<tr>
+						<th scope="col">파트너명</th>
+						<th scope="col">사용자명</th>
+						<th scope="col">나이</th>
+						<th scope="col">닉네임</th>
+						<th scope="col">가입일자</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<c:if test="${!empty userList}">
+						<c:forEach var="data" items="${userList}" varStatus="status">
+							<tr>
+								<td><c:out value="${data.partnerId}" /></td>
+								<td><c:out value="${data.userName}" /></td>
+								<td><c:out value="${data.userAge}" /></td>
+								<td><c:out value="${data.userNickName}" /></td>
+								<td><fmt:formatDate value="${data.createDate}" pattern="yyyy-MM-dd"/></td>
+								<td> <button>삭제</button> </td>
+							</tr>
+						</c:forEach>
+					</c:if>
+						
+					<c:if test="${empty userList}">
+						<tr>
+							<td colspan="6">사용자 정보가 없습니다.</td>
+						</tr>
+					</c:if>
+				</tbody>
+			</table>
+			
+			<div align="right" style="width: 600px;">
+				<input type="button" onclick="goAdd();" value="사용자추가">
+			</div>
+		</form:form>
+	</body>
+</html>

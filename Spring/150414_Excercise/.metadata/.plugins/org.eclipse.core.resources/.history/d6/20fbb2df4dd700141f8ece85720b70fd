@@ -1,0 +1,18 @@
+package com.shc.isd;
+
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+public class PartnerServiceImpl implements PartnerService{
+	
+	@Repository
+	private PartnerDao partnerDao;
+	
+	@Override
+	public List<Partner> selectPartnerList(Partner partner){
+		return partnerDao.selectPartnerList(partner);
+	}
+	
+
+}

@@ -1,0 +1,111 @@
+/*#include <iostream>
+using namespace std;
+
+class Point{
+public:
+	void Print();
+
+	Point();
+	Point(int initialX, int initialY);
+	Point(const Point&pt);
+
+	void SetX(int value){
+		if (value < 0)	x = 0;
+		else if (value > 100) x = 100;
+		else	x = value;
+	}
+	void SetY(int value){
+		if (value < 0)	y = 0;
+		else if (value > 100) y = 100;
+		else	y = value;
+	}
+
+	int GetX() {return x;};
+	int GetY() {return y;};
+
+private:
+	int x, y;
+};
+
+Point::Point(const Point&pt){
+	x = pt.x;
+	y = pt.y;
+}
+
+Point::Point(int initialX, int initialY){
+	SetX(initialX);
+	SetY(initialY);
+}
+
+Point::Point(){
+	x = 0;
+	y = 0;
+}
+
+void Point::Print(){
+	cout << " ( " << x << ", " << y << " ) \n" ;
+}
+
+int main(){
+	Point pt(-50, 200);
+	pt.Print();
+	return 0;
+}
+*/
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Student{
+public:
+	string name;
+	int sNo;
+
+	Student(const string& name_arg, int stdNumber);
+	~Student();
+	
+public:
+	static int student_count;
+	static void PrintStdCount();
+};
+
+int Student::student_count = 0;
+
+void Student::PrintStdCount(){
+	cout << "******* 0" << "\n";
+	cout << "Student °´Ã¼ ¼ö = " << student_count << "\n";
+}
+
+Student::Student(const string& name_arg, int stdNumber){
+	student_count++;
+	name = name_arg;
+	sNo = stdNumber;
+}
+
+Student::~Student(){
+	student_count--;
+	cout << "******* 1" << "\n";
+}
+
+void Func(){
+	cout << "******* 2" << "\n";
+	Student std1("Bill",342);
+	cout << "******* 3" << "\n";
+	Student std2("James",214);
+
+	Student::PrintStdCount();
+	cout << "******* 4" << "\n";
+}
+
+int main(){
+	Student::PrintStdCount();
+	cout << "******* 5" << "\n";
+	Student std("Jeffrey", 123);
+	cout << "******* 6" << "\n";
+	Student::PrintStdCount();
+	Func();
+	cout << "******* 7" << "\n";
+	Student::PrintStdCount();
+	return 0;
+
+}

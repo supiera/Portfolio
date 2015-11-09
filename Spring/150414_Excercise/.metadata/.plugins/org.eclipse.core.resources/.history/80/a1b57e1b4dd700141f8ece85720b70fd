@@ -1,0 +1,16 @@
+package com.shc.isd;
+
+import java.util.List;
+
+public class PartnerServiceImpl implements PartnerService{
+	
+	@
+	private PartnerDao partnerDao;
+	
+	@Override
+	public List<Partner> selectPartnerList(Partner partner){
+		return partnerDao.selectPartnerList(partner);
+	}
+	
+
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Google Maker</title>
+<meta name = "viewport" content = "initial-scale = 1.0" />
+    <meta charset = "utf-8" />
+    <style>
+        html, body 
+        {
+            height : 100%;
+            margin : 0;
+            padding : 0;
+            }
+            #map
+            {
+                height: 100%;
+                }
+    </style>
+
+<script type = "text/javascript">
+	var members;
+	function displayMember(memberList){		
+		members = memberList;
+		alert("hello");
+	}
+	
+	var map;
+	function showMap() {
+	    var myLatLng = { lat: 37.709, lng: 127.045 };
+	    map = new google.maps.Map(document.getElementById('map'), {
+	        zoom: 4,
+	        center: myLatLng
+	    });
+
+	    for (var i = 0; i < members.length; i++) {
+	        var lat = members[i].address.geo.lat;
+	        var lng = members[i].address.geo.lng;
+	        var myLatlat = new google.maps.LatLng(lat, lng);
+	        //var mytitle = members[i].name;
+
+	        var marker = new google.maps.Marker({
+	            position: myLatlat,
+	            map: map,
+	            title: 'mytitle'
+	        });
+	    }
+
+	}
+	/*function updateMarker(){
+		for(var i = 0; i < members.length; i++){
+			var lat = members[i].address.geo.lat;
+			var lng = members[i].address.geo.lng;
+    		var myLatlat = new google.maps.LatLng(lat, lng);
+    		var mytitle = members[i].name;
+    		var marker = new google.maps.Marker({
+                position: myLatlat,
+                map: map, 
+                title: 'mytitle'
+            });
+    	} 
+	}*/
+</script>
+<script src = "http://jsonplaceholder.typicode.com/users?callback=displayMember"></script>
+<script src = " https://maps.googleapis.com/maps/api/js?key=AIzaSyDpP_oE6B5BD9QQTDx2d3vLGS6LYky7ciQ&callback=showMap"
+        async defer></script>
+</head>
+
+<body>
+<div id = "map"></div>
+
+</body>
+</html>

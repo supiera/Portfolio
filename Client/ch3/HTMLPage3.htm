@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Canvas</title>
+</head>
+<body>
+<canvas id = "draw" width = "600" height = "200" ></canvas>
+<script>
+    window.onload = function () {
+        var canvas = document.getElementById("draw");
+        var context = canvas.getContext("2d");
+        context.fillRect(10, 10, 100, 100);
+        context.arc(100, 100, 75, 0, degreesToRadians(270), true);
+        context.lineWidth = 15;
+        context.strokeStyle = 'black';
+        context.stroke();
+    };
+    function degreesToRadians(degrees) {
+        return (degrees * Math.PI) / 180;
+    }
+</script>
+
+</body>
+</html>

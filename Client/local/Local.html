@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<script>
+	window.onload = function(){
+		
+		//locat storage 사용법 1
+		localStorage.setItem('favorite','vanilla');
+		var favorite = localStorage.getItem('favorite');
+		alert(favorite);
+		//locat storage 사용법 2
+		localStorage['hateflovor'] = 'pepper';
+		var hate = localStorage['hateflovor'];
+		alert(hate);
+		showAllStorage();
+		removeHate();
+		showAllStorage();
+	}
+	
+	function showAllStorage(){
+		for(var i=0; i<localStorage.length; i++){
+			var key = localStorage.key(i);		//키값을 가져옴
+			var value = localStorage[key];
+			alert(key + " : " + value);
+		}		
+	}
+	
+	function removeHate(){
+		localStorage.removeItem('hateflovor');
+		alert("hate Removed");
+	}
+</script>
+
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html>

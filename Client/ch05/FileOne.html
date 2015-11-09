@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+
+	<title>Movie Play</title>
+	<meta charset="utf-8">
+	<link rel = "stylesheet" href = "webvilletv.css">
+	<script src="01_VideoHandler.js"></script>
+	
+</head>
+<body>
+	<div id = "tv">
+		<div id = "tvConsole">
+			<div id = "highlight">
+				<img src = "media/highlight.png" alt ="hightlight for tv">
+			</div>
+			<div id = "vidoeDiv">
+				<video controls width = "480"
+					height = "360" poster="images/prerollposter.jpg" id = "video">
+				</video>
+			</div>
+		</div>
+	</div>
+	Select Video : <select id = "videos">
+		<option selected value = 0> preroll 
+		<option value = 1> areyoupopular
+		<option value =2> destinationearth 
+	</select>
+</body>
+</html>

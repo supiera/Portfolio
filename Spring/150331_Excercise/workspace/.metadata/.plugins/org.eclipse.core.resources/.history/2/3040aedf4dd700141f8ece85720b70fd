@@ -1,0 +1,5 @@
+package com.shc.isd.controller;
+
+public class UserController {
+
+}

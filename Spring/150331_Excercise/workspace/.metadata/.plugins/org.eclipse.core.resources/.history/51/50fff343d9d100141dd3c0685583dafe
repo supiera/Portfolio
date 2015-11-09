@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SqlUserMapper">
+	<resultMap type="User" id="UserResult">
+		<result property="userId" column="USER_ID"/>
+		<result property="partnerId" column="USER_ID"/>
+		<result property="partnerName" column="PARTNER_NAME"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="userNickName" column="USER_NICK_NAME"/>
+		<result property="userAge" column="USER_AGE"/>
+		<result property="useYn" column="USE_YN"/>
+		<result property="createDate" column="CREATE_DATE"/>
+		<result property="updateDate"column="UPDATE_DATE"/>
+	</resultMap>
+	<!-- 조회조건 -->
+	<sql id="List_WhereClause">
+		<if test="partnerId > 0 ">
+			ANDM.USER_ID = #{ partnerId }
+		</if>
+		<if test="userName != null and userName != '' ">
+			ANDM.USER_NAME LIKE CONCAT('%', #{ userName }, '%')
+		</if>
+	</sql>
+	
+	<select id="selectUser" parameterType="User" resultMap="UserResult">
+		<![CDATA[
+		SELECT
+		M.USER_ID AS USER_ID,
+		G.PARTNER_NAME AS PARTNER_NAME,
+		M.USER_NAME AS USER_NAME,
+		M.USER_NICK_NAME AS USER_NICK_NAME,
+		M.USER_AGE AS USER_AGE,
+		M.CREATE_DATE AS CREATE_DATE
+		M.UPDATE_DATE AS UPDATE_DATE
+		FROM User M , Partner G
+		WHERE M.USE_YN = 'Y'
+		AND M.USER_ID = G.USER_ID
+		AND G.USE_YN = 'Y'
+		]]>
+	<include refid="List_WhereClause"/>
+		ORDER BY M.CREATE_DATE DESC
+	</select>
+	<update id="deleteUser" parameterType="Integer" >
+		<![CDATA[
+		UPDATEUser SET USE_YN = 'N'
+		WHEREUSER_ID = #{ userId }
+		]]>
+	</update>
+</mapper>

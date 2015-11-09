@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Untitled Page</title>
+
+    <script>
+        function Movie(title, location, timeTable) {
+            this.title = title;
+            this.location = location;
+            this.timeTable = timeTable;
+        }
+
+        window.onload = function () {
+            var m = new Movie("베테랑", "의정부", "2시, 4시");
+            var jsonString = JSON.stringify(m);
+            alert(json);
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
